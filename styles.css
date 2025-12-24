@@ -1,0 +1,244 @@
+/* --- COLOR VARIABLES --- */
+/* --- 1. THE THEME ENGINE --- */
+:root {
+    --bg-color: #ffffff;
+    --text-primary: #111111;
+    --text-secondary: #444444;
+    --text-muted: #666666;
+    --icon-bg: #f5f5f5;
+    --shadow-color: rgba(0, 0, 0, 0.12);
+}
+
+/* Explicit Light Mode definition to force the browser to remember these */
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg-color: #ffffff;
+        --text-primary: #111111;
+        --text-secondary: #444444;
+        --text-muted: #666666;
+        --icon-bg: #f5f5f5;
+    }
+}
+
+/* Dark Mode Override */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #0f0f0f;       
+        --text-primary: #ffffff;   
+        --text-secondary: #dddddd; 
+        --text-muted: #aaaaaa; 
+        --icon-bg: #1e1e1e;
+        --shadow-color: rgba(0, 0, 0, 0.6);
+    }
+}
+
+/* --- 2. THE FIX --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    /* We use !important here temporarily if the glitch persists, 
+       but standard var should work with the 'light' media query added above */
+    background-color: var(--bg-color); 
+    color: var(--text-primary);
+    
+    /* Reduced transition time to help the browser 'snap' back faster */
+    transition: background-color 0.3s ease, color 0.3s ease; 
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+
+    
+    /* ... your existing code ... */
+    flex-direction: column; /* This keeps the container and footer stacked vertically */
+    overflow-x: hidden;
+
+}
+
+/* Keep everything else (h1, .real-name, etc.) exactly as it was, 
+   using the var(--text-...) colors. */
+
+/* --- MAIN LAYOUT CONTAINER --- */
+.main-container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    max-width: 1400px;
+    gap: 60px; 
+}
+
+/* --- IMAGE SECTION --- */
+#image-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.responsive-image {
+    width: 320px; 
+    height: 320px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.responsive-image:hover {
+    transform: scale(1.03) translateY(-10px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+}
+
+/* --- TEXT CONTENT --- */
+#text-section {
+    max-width: 600px;
+}
+
+/* Brand Name (Decyphr) */
+#text-section h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 5.5rem); 
+    font-weight: 800;
+    margin-bottom: 0px;
+    color: var(--text-primary); /* Linked to variables */
+    letter-spacing: -3px;
+    line-height: 1;
+}
+
+/* Real Name (Auritra Biswas) */
+.real-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--text-secondary); /* Linked to variables */
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+/* Job Title */
+.job-title {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--text-muted); /* Linked to variables */
+    margin-bottom: 25px;
+}
+
+/* Description */
+#text-section p.description {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--text-secondary); /* Linked to variables */
+    margin-bottom: 35px;
+    line-height: 1.8;
+}
+
+/* --- SOCIAL ICONS --- */
+.social-links {
+    display: flex;       
+    gap: 20px;           
+    margin-top: 30px;    
+    justify-content: center; 
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: #f5f5f5; 
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: 1px solid transparent;
+}
+
+.social-icon:hover {
+    background-color: #000;
+    transform: translateY(-5px);
+}
+
+.icons {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    transition: filter 0.3s ease;
+}
+
+.social-icon:hover .icons {
+    filter: invert(1);
+}
+
+/* --- DESKTOP VIEW --- */
+@media (min-width: 1024px) {
+    .main-container {
+        flex-direction: row;      
+        text-align: left;         
+        justify-content: center;  
+        gap: 200px; 
+    }
+
+    .responsive-image {
+        width: 650px; 
+        height: 650px;
+    }
+
+    .social-links {
+        justify-content: flex-start;
+    }
+}
+
+/* --- FOOTER NOTE --- */
+/* --- FOOTER NOTE (FIXED OVERLAP) --- */
+/* --- FOOTER NOTE (FINAL FIX) --- */
+.footer-note {
+    width: 100%;
+    text-align: center;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+    padding: 20px;
+    
+    /* This ensures it doesn't get squashed by other elements */
+    flex-shrink: 0;
+    margin-top: auto; 
+
+    /* Light Mode: Ash color */
+    color: #b0b0b0; 
+    transition: color 0.3s ease;
+}
+
+.footer-note a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/* Dark Mode Override: Black/Deep Grey text */
+@media (prefers-color-scheme: dark) {
+    .footer-note {
+        color: #333333; 
+    }
+}
+
+/* DESKTOP VIEW */
+@media (min-width: 1024px) {
+    .footer-note {
+        position: fixed; /* Using fixed ensures it stays at the very bottom of the screen */
+        bottom: 10px;
+        left: 0;
+        right: 0;
+        padding: 0;
+        margin-top: 0;
+    }
+}

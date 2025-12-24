@@ -1,0 +1,45 @@
+/* styles.css
+    Use on <img class="responsive-image">.
+    When the img has the class "full-window" it will snap to the left.
+*/
+
+.responsive-image {
+  display: block;
+  max-width: 30%;
+  height: 2%;
+  margin-left: 50%;
+  margin-right: 50%; /* centers when image is smaller than the viewport */
+  transition: margin 160ms ease;
+}
+
+/* Add the class "full-window" (via JS or server-side) when the image is full-windowed */
+.responsive-image.full-window {
+    width: 40%;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+
+
+
+
+
+
+.responsive-image {
+  width: 40%;                 /* image = 40% width */
+  aspect-ratio: 1 / 1;        /* square so border-radius:50% makes a perfect circle */
+  max-width: 480px;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 50%;         /* perfect circle */
+  margin: 50vh auto 0;        /* top margin = half the viewport height, centered horizontally */
+  transition: margin 160ms ease;
+}
+
+/* Add the class "full-window" (via JS) when the window is full/windowed (or fullscreen) */
+.responsive-image.full-window {
+  margin-left: 0;             /* snap to left when full-window */
+  margin-right: auto;
+  margin-top: 50vh;          /* keep top margin = half viewport height */
+}
