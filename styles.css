@@ -1,5 +1,4 @@
 /* --- COLOR VARIABLES --- */
-/* --- 1. THE THEME ENGINE --- */
 :root {
     --bg-color: #ffffff;
     --text-primary: #111111;
@@ -9,18 +8,6 @@
     --shadow-color: rgba(0, 0, 0, 0.12);
 }
 
-/* Explicit Light Mode definition to force the browser to remember these */
-@media (prefers-color-scheme: light) {
-    :root {
-        --bg-color: #ffffff;
-        --text-primary: #111111;
-        --text-secondary: #444444;
-        --text-muted: #666666;
-        --icon-bg: #f5f5f5;
-    }
-}
-
-/* Dark Mode Override */
 @media (prefers-color-scheme: dark) {
     :root {
         --bg-color: #0f0f0f;       
@@ -32,7 +19,6 @@
     }
 }
 
-/* --- 2. THE FIX --- */
 * {
     margin: 0;
     padding: 0;
@@ -41,29 +27,17 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    /* We use !important here temporarily if the glitch persists, 
-       but standard var should work with the 'light' media query added above */
     background-color: var(--bg-color); 
     color: var(--text-primary);
-    
-    /* Reduced transition time to help the browser 'snap' back faster */
     transition: background-color 0.3s ease, color 0.3s ease; 
-    
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     padding: 20px;
-
-    
-    /* ... your existing code ... */
-    flex-direction: column; /* This keeps the container and footer stacked vertically */
+    flex-direction: column; 
     overflow-x: hidden;
-
 }
-
-/* Keep everything else (h1, .real-name, etc.) exactly as it was, 
-   using the var(--text-...) colors. */
 
 /* --- MAIN LAYOUT CONTAINER --- */
 .main-container {
@@ -73,11 +47,10 @@ body {
     justify-content: center;
     text-align: center;
     width: 100%;
-    max-width: 1400px;
-    gap: 60px; 
+    max-width: 1400px; 
+    gap: 50px; 
 }
 
-/* --- IMAGE SECTION --- */
 #image-section {
     display: flex;
     justify-content: center;
@@ -101,44 +74,38 @@ body {
 
 /* --- TEXT CONTENT --- */
 #text-section {
-    max-width: 600px;
+    max-width: 600px; /* Restored to original narrow width for organization */
 }
 
-/* Brand Name (Decyphr) */
 #text-section h1 {
-    font-family: 'Montserrat', sans-serif;
     font-size: clamp(3.5rem, 8vw, 5.5rem); 
     font-weight: 800;
     margin-bottom: 0px;
-    color: var(--text-primary); /* Linked to variables */
+    color: var(--text-primary);
     letter-spacing: -3px;
     line-height: 1;
 }
 
-/* Real Name (Auritra Biswas) */
 .real-name {
-    font-family: 'Montserrat', sans-serif;
     font-size: 1.8rem;
     font-weight: 300;
-    color: var(--text-secondary); /* Linked to variables */
+    color: var(--text-secondary);
     margin-top: 5px;
     margin-bottom: 10px;
 }
 
-/* Job Title */
 .job-title {
     font-family: 'Roboto Mono', monospace;
     font-size: 1.2rem;
     font-weight: 400;
-    color: var(--text-muted); /* Linked to variables */
+    color: var(--text-muted);
     margin-bottom: 25px;
 }
 
-/* Description */
 #text-section p.description {
     font-family: 'Roboto Mono', monospace;
     font-size: 0.9rem;
-    color: var(--text-secondary); /* Linked to variables */
+    color: var(--text-secondary);
     margin-bottom: 35px;
     line-height: 1.8;
 }
@@ -180,6 +147,65 @@ body {
     filter: invert(1);
 }
 
+/* --- NEIGHBOUR SECTION --- */
+#neighbor-wrapper {
+    width: 100%;
+    overflow: hidden;
+    transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+    
+    /* NEW: Ensures the content inside centers relative to the screen */
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+#neighbor, #neighbors {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centers the CPU and text row */
+    gap: 20px;
+    width: 100%;
+    
+}
+
+.neighbor-text {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+    color: #b0b0b0; 
+    transition: color 0.3s ease;
+    text-align: center; /* Always centers the text lines */
+}
+#neighbors{
+    flex-wrap: wrap;
+    justify-content: center;
+    display: flex;
+}
+#btn {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0;
+    cursor: pointer;
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+}
+
+#btn img {
+    border: none;
+    display: block;
+    image-rendering: pixelated;
+}
+
+.pixel-line {
+    border: none;
+    border-top: 1px dashed #555;
+    width: 100%;
+    margin: 20px 0;
+    opacity: 0.5;
+}
+
 /* --- DESKTOP VIEW --- */
 @media (min-width: 1024px) {
     .main-container {
@@ -194,47 +220,22 @@ body {
         height: 650px;
     }
 
-    .social-links {
+    #text-section {
+        text-align: left;
+    }
+    
+
+
+    .social-links, #neighbor, #neighbors {
         justify-content: flex-start;
     }
-}
 
-/* --- FOOTER NOTE --- */
-/* --- FOOTER NOTE (FIXED OVERLAP) --- */
-/* --- FOOTER NOTE (FINAL FIX) --- */
-.footer-note {
-    width: 100%;
-    text-align: center;
-    font-family: 'Roboto Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.5px;
-    padding: 20px;
-    
-    /* This ensures it doesn't get squashed by other elements */
-    flex-shrink: 0;
-    margin-top: auto; 
-
-    /* Light Mode: Ash color */
-    color: #b0b0b0; 
-    transition: color 0.3s ease;
-}
-
-.footer-note a {
-    color: inherit;
-    text-decoration: underline;
-}
-
-/* Dark Mode Override: Black/Deep Grey text */
-@media (prefers-color-scheme: dark) {
-    .footer-note {
-        color: #333333; 
+    .neighbor-text {
+        text-align: left;
     }
-}
 
-/* DESKTOP VIEW */
-@media (min-width: 1024px) {
     .footer-note {
-        position: fixed; /* Using fixed ensures it stays at the very bottom of the screen */
+        position: fixed;
         bottom: 10px;
         left: 0;
         right: 0;
@@ -242,3 +243,81 @@ body {
         margin-top: 0;
     }
 }
+
+/* --- FOOTER (RESTORED COLORS) --- */
+.footer-note {
+    width: 100%;
+    text-align: center;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+    padding: 20px;
+    flex-shrink: 0;
+    margin-top: auto; 
+    color: #b0b0b0; 
+}
+
+.footer-note a {
+    color: inherit; /* FIXED: Keeps "here" the same color as the text */
+    text-decoration: underline;
+}
+
+@media (prefers-color-scheme: dark) {
+    .footer-note {
+        color: #333333; 
+    }
+}
+
+
+
+
+/* --- ARROW STYLING --- */
+.toggle-trigger {
+    margin-top: 30px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center; /* Center on mobile */
+    user-select: none;
+}
+
+@media (min-width: 1024px) {
+    .toggle-trigger { 
+        justify-content: flex-start; /* Aligns with Decyphr text on desktop */
+    } 
+}
+
+.arrow-icon {
+    width: 30px;
+    /* Added a slight bounce to the timing function */
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Rotates arrow when active */
+.arrow-icon.active {
+    transform: rotate(180deg);
+}
+
+/* --- SMOOTH TRANSITION WRAPPER --- */
+#neighbor-wrapper {
+    width: 100%;
+    overflow: hidden;
+    /* max-height must be used for the slide effect */
+    transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+}
+
+/* Hidden State */
+#neighbor-wrapper.collapsed {
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Expanded State */
+#neighbor-wrapper.expanded {
+    max-height: 1200px; /* High enough to fit all content */
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+
