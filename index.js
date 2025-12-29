@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cpuBtn = document.getElementById('btn');
     
     // The code that will be copied to the clipboard
-    const codeToCopy = '<a href="https://dec1phr.github.io/" target="_blank"><img src="https://dec1phr.github.io/core.png" alt="Decyphr" width="81" height="33"></a>';
+    const codeToCopy = '<a href="https://dec1phr.github.io/" target="_blank"><img src="https://dec1phr.github.io/core.png" alt="Decyphr" width="88" height="33"></a>';
 
     cpuBtn.addEventListener('click', () => {
         // Copy to clipboard
